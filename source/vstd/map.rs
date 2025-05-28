@@ -3,11 +3,12 @@
 use super::pervasive::*;
 use super::prelude::*;
 use super::set::*;
+use super::hash_map::*;
 
 verus! {
 
 /// `Map<K, V>` is an abstract map type for specifications.
-/// To use a "map" in compiled code, use an `exec` type like HashMap (TODO)
+/// To use a "map" in compiled code, use an `exec` type like [`HashMap`](super::hash_map)
 /// that has a `Map<K, V>` as its specification type.
 ///
 /// An object `map: Map<K, V>` has a _domain_, a set of keys given by [`map.dom()`](Map::dom),
