@@ -109,17 +109,24 @@ impl<K, V> Map<K, V> {
         self.dom().len()
     }
 
+    /// An empty tracked map (values are tracked variables) to be used in [`tracked mode`](https://verus-lang.github.io/verus/guide/reference-var-modes.html?#using-tracked-and-ghost-variables-from-a-proof-function). 
     pub axiom fn tracked_empty() -> (tracked out_v: Self)
         ensures
             out_v == Map::<K, V>::empty(),
     ;
 
+    /// Inserts the given (key, value) pair into the tracked map.
+    ///
+    /// If the key is already present from the map, then its existing value is overwritten
+    /// by the new value.
     pub axiom fn tracked_insert(tracked &mut self, key: K, tracked value: V)
         ensures
             *self == Map::insert(*old(self), key, value),
     ;
 
-    /// todo fill in documentation
+    /// Removes the given key and its associated value from the tracked map.
+    ///
+    /// If the key is already absent from the map, then this map is left unchanged.
     pub axiom fn tracked_remove(tracked &mut self, key: K) -> (tracked v: V)
         requires
             old(self).dom().contains(key),
